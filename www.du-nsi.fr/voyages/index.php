@@ -3,10 +3,15 @@ try {
 
    $pdo = new PDO('mysql:host=localhost;dbname=dunsivoyages', 'root', '');
 
-   $statement = $pdo->prepare("SELECT * FROM villes ORDER BY libelle");
-   $statement->execute();
-   $villes = $statement->fetchAll(PDO::FETCH_ASSOC);
+// récupération des villes de la table
+   $statement1 = $pdo->prepare("SELECT * FROM villes ORDER BY libelle");
+   $statement1->execute();
+   $villes = $statement1->fetchAll(PDO::FETCH_ASSOC);
 
+// récupération des distances de la table 
+   $statement2 = $pdo->prepare("SELECT * FROM distances");
+   $statement2->execute();
+   $distances = $statement2->fetchAll(PDO::FETCH_ASSOC);
    /*echo '<pre>';var_dump($villes); echo '<pre>';
    die;*/
 
@@ -131,11 +136,11 @@ try {
        </div>
    </div>
   </footer>
-  <script>
-   
-   const villes = <?= json_encode($villes) ?>;
-   console.log(villes);
 
-</script>
+    <script>   
+        const villes = <?= json_encode($villes) ?>;
+        const distances = <?= json_encode($distances)?>
+    </script>
+    
  </body>
 </html>
